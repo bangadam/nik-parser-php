@@ -1,0 +1,29 @@
+{
+  "name": "bangadam/nik-parser-php",
+  "description": "Identification Card of Indonesian",
+  "type": "library",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "NikParser\\": "src/NikParser/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Muhammad Meganata Adam",
+      "email": "bangadam.dev@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "illuminate/support": "10.x-dev"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "NikParser\\NikParserServiceProvider"
+      ]
+    }
+  }
+}
