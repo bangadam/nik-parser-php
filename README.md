@@ -9,19 +9,19 @@
 <h1 align="center">NIK Parser PHP</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.shields.io/github/languages/top/bangadam/nik-parse-php?color=56BEB8">
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/bangadam/nik-parser-php?color=56BEB8">
 
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/bangadam/nik-parse-php?color=56BEB8">
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/bangadam/nik-parser-php?color=56BEB8">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/bangadam/nik-parse-php?color=56BEB8">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/bangadam/nik-parser-php?color=56BEB8">
 
-  <img alt="License" src="https://img.shields.io/github/license/bangadam/nik-parse-php?color=56BEB8">
+  <img alt="License" src="https://img.shields.io/github/license/bangadam/nik-parser-php?color=56BEB8">
 
-  <img alt="Github issues" src="https://img.shields.io/github/issues/bangadam/nik-parse-php?color=56BEB8" />
+  <img alt="Github issues" src="https://img.shields.io/github/issues/bangadam/nik-parser-php?color=56BEB8" />
 
-  <img alt="Github forks" src="https://img.shields.io/github/forks/bangadam/nik-parse-php?color=56BEB8" />
+  <img alt="Github forks" src="https://img.shields.io/github/forks/bangadam/nik-parser-php?color=56BEB8" />
 
-  <img alt="Github stars" src="https://img.shields.io/github/stars/bangadam/nik-parse-php?color=56BEB8" />
+  <img alt="Github stars" src="https://img.shields.io/github/stars/bangadam/nik-parser-php?color=56BEB8" />
 </p>
 
 <!-- Status -->
@@ -68,10 +68,10 @@ Before starting :checkered_flag:, you need to have [PHP](https://www.php.net/) a
 
 ```bash
 # Clone this project
-$ git clone https://github.com/bangadam/nik-parse-php
+$ git clone https://github.com/bangadam/nik-parser-php
 
 # Access
-$ cd nik-parse-php
+$ cd nik-parser-php
 
 # Install dependencies
 $ composer install
