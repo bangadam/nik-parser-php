@@ -64,20 +64,15 @@ The following tools were used in this project:
 
 Before starting :checkered_flag:, you need to have [PHP](https://www.php.net/) and - [Composer](https://getcomposer.org/) installed.
 
-## :checkered_flag: Setup
+## :rocket: Usage
+
+#### Install
 
 ```bash
-# Clone this project
-$ git clone https://github.com/bangadam/nik-parser-php
-
-# Access
-$ cd nik-parser-php
-
-# Install dependencies
-$ composer install
+composer require bangadam/nik-parser-php
 ```
 
-## :rocket: Usage
+#### Example
 
 ```php
 <?php
