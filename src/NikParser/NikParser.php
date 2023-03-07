@@ -2,27 +2,36 @@
 
 namespace NikParser;
 
-class NikParser {
+class NikParser
+{
     private string $nik;
-    private array $location;
+    private array  $location;
 
+    /**
+     * @throws \Exception
+     */
     public function __construct($nik)
     {
-        $this->nik = $nik;
+        $this->nik      = $nik;
         $this->location = $this->getLocation();
 
         $this->isValid();
     }
-    
-    private function getLocation() : array
+
+    /**
+     * @return array
+     */
+    private function getLocation(): array
     {
         $path = __DIR__ . '/wilayah.json';
         $json = file_get_contents($path);
-        $wilayah = json_decode($json, true);
-        return $wilayah;
+        return json_decode($json, true);
     }
 
-    private function isValid() : void
+    /**
+     * @throws \Exception
+     */
+    private function isValid(): void
     {
         if (strlen($this->nik) < 16 || strlen($this->nik) > 16) {
             throw new \Exception("NIK must be 16 characters");
@@ -32,7 +41,7 @@ class NikParser {
     /**
      * Province section
      */
-    public function isValidProvince() :bool
+    public function isValidProvince(): bool
     {
         $province = substr($this->nik, 0, 2);
         if (array_key_exists($province, $this->location['provinsi'])) {
@@ -41,13 +50,18 @@ class NikParser {
         return false;
     }
 
-    public function getProvinceID() :string 
+    /**
+     * @return string
+     */
+    public function getProvinceID(): string
     {
-        $province = substr($this->nik, 0, 2);
-        return $province;
+        return substr($this->nik, 0, 2);
     }
 
-    public function getProvince() :string
+    /**
+     * @return string
+     */
+    public function getProvince(): string
     {
         if ($this->isValidProvince()) {
             return $this->location['provinsi'][$this->getProvinceID()];
@@ -58,82 +72,80 @@ class NikParser {
     /**
      * City section
      */
-    public function isValidCity() :bool
+    public function isValidCity(): bool
     {
         $city = substr($this->nik, 0, 4);
-        if (array_key_exists($city, $this->location['kabkot'])) {
-            return true;
-        }
-        return false;
+        return array_key_exists($city, $this->location['kabkot']);
     }
 
-    public function getCityID() :string 
+    /**
+     * @return string
+     */
+    public function getCityID(): string
     {
-        $city = substr($this->nik, 0, 4);
-        return $city;
+        return substr($this->nik, 0, 4);
     }
 
-    public function getCity() :string
+    /**
+     * @return string
+     */
+    public function getCity(): string
     {
-        if ($this->isValidCity()) {
-            return $this->location['kabkot'][$this->getCityID()];
-        }
-        return 'Kota/Kabupaten tidak valid';
+        return $this->isValidCity() ? $this->location['kabkot'][$this->getCityID()] : 'Kota/Kabupaten tidak valid';
     }
 
     /**
      * District section
      */
-    public function isValidDistrict() :bool
+    public function isValidDistrict(): bool
     {
         $district = substr($this->nik, 0, 6);
-        if (array_key_exists($district, $this->location['kecamatan'])) {
-            return true;
-        }
-        return false;
+        return array_key_exists($district, $this->location['kecamatan']);
     }
 
-    public function getDistrictID() :string 
+    /**
+     * @return string
+     */
+    public function getDistrictID(): string
     {
-        $district = substr($this->nik, 0, 6);
-        return $district;
+        return substr($this->nik, 0, 6);
     }
 
-    public function getDistrict() :string
+    /**
+     * @return string
+     */
+    public function getDistrict(): string
     {
-        if ($this->isValidDistrict()) {
-            return $this->location['kecamatan'][$this->getDistrictID()];
-        }
-        return 'Kecamatan tidak valid';
+        return $this->isValidDistrict() ? $this->location['kecamatan'][$this->getDistrictID()] : 'Kecamatan tidak valid';
     }
 
-    public function getZipCode() :string
+    /**
+     * @return string
+     */
+    public function getZipCode(): string
     {
-        if ($this->isValidDistrict()) {
-            return substr($this->location['kecamatan'][$this->getDistrictID()], -5);
-        }
-        return 'Kode pos tidak valid';
+        return $this->isValidDistrict() ? substr($this->location['kecamatan'][$this->getDistrictID()], -5) : 'Kode pos tidak valid';
     }
 
     /**
      * Birth section
      */
-    public function isValidBirth() :bool
+    public function isValidBirth(): bool
     {
         $birth = substr($this->nik, 6, 6);
-        if ($birth > 0) {
-            return true;
-        }
-        return false;
+        return $birth > 0;
     }
 
-    public function getBirth() :string
+    /**
+     * @return string
+     */
+    public function getBirth(): string
     {
         if ($this->isValidBirth()) {
             $birth = substr($this->nik, 6, 6);
-            $year = substr($birth, 0, 2);
+            $year  = substr($birth, 0, 2);
             $month = substr($birth, 2, 2);
-            $day = substr($birth, 4, 2);
+            $day   = substr($birth, 4, 2);
             return $day . '-' . $month . '-19' . $year;
         }
         return 'Tanggal lahir tidak valid';
@@ -142,12 +154,15 @@ class NikParser {
     /**
      * NIK section
      */
-    public function getNIK() :string
+    public function getNIK(): string
     {
         return $this->nik;
     }
 
-    public function getUniCode() :string
+    /**
+     * @return string
+     */
+    public function getUniCode(): string
     {
         return substr($this->nik, 12, 4);
     }
@@ -155,43 +170,46 @@ class NikParser {
     /**
      * Person section
      */
-    public function getGender() : string
+    public function getGender(): string
     {
         $gender = substr($this->nik, 6, 1);
-        if ($gender % 2 == 0) {
-            return 'Wanita';
-        }
-        return 'Pria';
-        
+        return $gender % 2 == 0 ? 'Wanita' : 'Pria';
+
     }
 
+    /**
+     * @return int
+     */
     public function getAge(): int
     {
         $birth = substr($this->nik, 6, 6);
-        $year = substr($birth, 0, 2);
+        $year  = substr($birth, 0, 2);
         $month = substr($birth, 2, 2);
-        $day = substr($birth, 4, 2);
-        $date = $day . '-' . $month . '-19' . $year;
-        $date = date_create($date);
+        $day   = substr($birth, 4, 2);
+        $date  = $day . '-' . $month . '-19' . $year;
+        $date  = date_create($date);
         $today = date_create(date('d-m-Y'));
-        $diff = date_diff($date, $today);
+        $diff  = date_diff($date, $today);
         return $diff->y;
     }
 
-    public function getAll() :Person
+    /**
+     * @return \NikParser\Person
+     */
+    public function getAll(): Person
     {
-        $person = new Person();
-        $person->nik = $this->getNIK();
-        $person->gender = $this->getGender();
-        $person->province = $this->getProvince();
-        $person->city = $this->getCity();
-        $person->district = $this->getDistrict();
-        $person->age = $this->getAge();
-        $person->zipCode = $this->getZipCode();
-        $person->birthDate = $this->getBirth();
+        $person             = new Person();
+        $person->nik        = $this->getNIK();
+        $person->gender     = $this->getGender();
+        $person->province   = $this->getProvince();
+        $person->city       = $this->getCity();
+        $person->district   = $this->getDistrict();
+        $person->age        = $this->getAge();
+        $person->zipCode    = $this->getZipCode();
+        $person->birthDate  = $this->getBirth();
         $person->uniqueCode = $this->getUniCode();
         $person->provinceID = $this->getProvinceID();
-        $person->cityID = $this->getCityID();
+        $person->cityID     = $this->getCityID();
         $person->districtID = $this->getDistrictID();
 
         return $person;
