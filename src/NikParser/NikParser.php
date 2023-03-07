@@ -10,7 +10,7 @@ class NikParser
     /**
      * @throws \Exception
      */
-    public function __construct($nik)
+    public function __construct(string $nik)
     {
         $this->nik      = $nik;
         $this->location = $this->getLocation();
@@ -33,8 +33,14 @@ class NikParser
      */
     private function isValid(): void
     {
+        // Validate Length
         if (strlen($this->nik) < 16 || strlen($this->nik) > 16) {
             throw new \Exception("NIK must be 16 characters");
+        }
+
+        // Validate Data Type
+        if (!ctype_digit($this->nik)) {
+            throw new \Exception("NIK must be a numeric string");
         }
     }
 
