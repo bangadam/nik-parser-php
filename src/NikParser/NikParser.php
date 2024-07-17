@@ -132,6 +132,7 @@ class NikParser {
         if ($this->isValidBirth()) {
             $birth = substr($this->nik, 6, 6);
             $day = substr($birth, 0, 2);
+            $day = $day > 40 ? $day - 40 : $day;
             $month = substr($birth, 2, 2);
             $year = substr($birth, 4, 2);
             return $day . '-' . $month . '-19' . $year;
@@ -157,11 +158,17 @@ class NikParser {
      */
     public function getGender() : string
     {
-        $gender = substr($this->nik, 6, 1);
-        if ($gender % 2 == 0) {
-            return 'Wanita';
+        $gender = substr($this->nik, 6, 6);
+
+        if (strlen($gender) == 6) {
+            $dates = str_split($gender, 2);
+            $day = $dates[0];
+            $day = (int) $day;
+
+            return $day > 40 ? 'Wanita' : 'Pria';
         }
-        return 'Pria';
+
+        return null;
         
     }
 
